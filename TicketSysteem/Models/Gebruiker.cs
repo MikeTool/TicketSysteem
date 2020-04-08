@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TicketSysteem.Models
 {
-    /// <summary>
-    /// Model voor een docent die vakken geeft
-    /// </summary>
     public class Gebruiker
     {
         /// <summary>
         /// Primary key
         /// </summary>
+        [Key]
         public int Id { get; set; }
 
         /// <summary>
         /// Voornaam (verplicht)
         /// </summary>
         [Required]
-        public string Naam { get; set; }
+        public string Voornaam { get; set; }
 
         /// <summary>
         /// Tussenvoegsels, zoals "van der"
@@ -30,8 +29,13 @@ namespace TicketSysteem.Models
         [Required]
         public string Achternaam { get; set; }
 
-        public string Emailadres { get; set; }
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string EmailAdres { get; set; }
 
         public string Telefoonnummer { get; set; }
+
+        [NotMapped]
+        public string VolledigeNaam => $"{Voornaam} {Tussenvoegsels} {Achternaam}";
     }
 }
